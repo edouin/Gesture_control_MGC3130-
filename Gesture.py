@@ -15,7 +15,7 @@ while True:
     try:
         data = bus.read_i2c_block_data(addr, 0x00, 26)  #Read the sensor data payload
 
-        d_size = data.pop(0)  #strip the unnececary info
+        d_size = data.pop(0)  #strip the unnecessary info
         d_flags = data.pop(0)
         d_seq = data.pop(0)
         d_ident = data.pop(0)
