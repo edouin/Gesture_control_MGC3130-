@@ -1,9 +1,8 @@
 import smbus
 import time
 
-bus = smbus.SMBus(1)
-
-addr = 0x42
+bus = smbus.SMBus(1) #default on Pi B+ older models can be 0
+addr = 0x42 # address MGC3130 
 
 try:
     #set runtime parameters for receiving all gestures
@@ -21,14 +20,12 @@ while True:
         d_seq = data.pop(0)
         d_ident = data.pop(0)
 
-
         d_configmask = data.pop(0) | data.pop(0) << 8
         d_timestamp = data.pop(0)  # counter
         d_sysinfo = data.pop(0)
 
         d_gesture = data[2:6]  # get the gesture codes
 
-        # print d_gesture [0:2]
         if d_gesture[0:2] == [3, 16]:
             print "ew"
         elif d_gesture[0:2] == [2, 16]:
@@ -37,6 +34,7 @@ while True:
             print "ns"
         elif d_gesture[0:2] == [4, 16]:
             print "sn"
+            
         time.sleep(0.01)
 
     except:
